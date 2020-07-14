@@ -6,12 +6,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Новости</title>
+    <title>UpLoad file to Cloud Object Yandex</title>
 </head>
 <body>
 <div>
-    <h2>Новости <br> Только для залогинившихся пользователей.</h2>
+    <h2>Object Storage Yandex <br> Только для залогинившихся пользователей.</h2>
     <a href="/">Главная</a>
+</div>
+
+<div>
+    <span>${message}</span>
+
 </div>
 </body>
 </html>
