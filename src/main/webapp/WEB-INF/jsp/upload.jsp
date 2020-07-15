@@ -24,7 +24,9 @@
     </table>
     <c:forEach items="${items}" var="item">
         <tr>
-            <td><c:out value="${item}" /></td> <br/>
+            <td><c:out value="${item}" /></td>
+            <br/>
+            <br/>
         </tr>
 
     </c:forEach>

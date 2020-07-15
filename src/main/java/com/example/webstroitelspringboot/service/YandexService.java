@@ -18,9 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class YandexService {
@@ -84,12 +82,25 @@ public class YandexService {
         return "Successfully deleted";
     }
 
-    public List<String> listFiles() {
-        List<String> keys = new ArrayList<>();
+    public Map<String, String> listFiles() {
+        // Set the presigned URL to expire after one hour.
+        java.util.Date expiration = new java.util.Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * 60;
+        expiration.setTime(expTimeMillis);
+
+        Map<String, String> keys = new HashMap<>();
         ObjectListing images = s3client.listObjects(bucketName);
         List<S3ObjectSummary> list = images.getObjectSummaries();
         for(S3ObjectSummary image: list) {
-            keys.add(image.getKey());
+
+            // Generate the presigned URL.
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucketName, image.getKey())
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = s3client.generatePresignedUrl(generatePresignedUrlRequest);
+            keys.put(image.getKey(), url.toString());
         }
         return keys;
     }

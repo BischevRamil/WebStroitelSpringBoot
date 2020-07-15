@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class RestS3Controller {
@@ -29,10 +30,9 @@ public class RestS3Controller {
 
     @GetMapping("/upload")
     public String uploadStatus(Model model) {
-        List<String> items = this.yandexService.listFiles();
+        Map<String, String> items = this.yandexService.listFiles();
         model.addAttribute("items", items);
 
         return "upload";
     }
-
 }
