@@ -1,12 +1,14 @@
 package com.example.webstroitelspringboot.service;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.iterable.S3Objects;
 import com.amazonaws.services.s3.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +17,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,24 +85,11 @@ public class YandexService {
     }
 
     public List<String> listFiles() {
-        ListObjectsRequest listObjectsRequest =
-                new ListObjectsRequest()
-                        .withBucketName(bucketName)
-                        .withPrefix("/");
-
         List<String> keys = new ArrayList<>();
-        ObjectListing objects = s3client.listObjects(listObjectsRequest);
-        while (true) {
-            List<S3ObjectSummary> summaries = objects.getObjectSummaries();
-            if (summaries.size() < 1) {
-                break;
-            }
-            for (S3ObjectSummary item : summaries) {
-                if (!item.getKey().endsWith("/"))
-                    keys.add(item.getKey());
-            }
-
-            objects = s3client.listNextBatchOfObjects(objects);
+        ObjectListing images = s3client.listObjects(bucketName);
+        List<S3ObjectSummary> list = images.getObjectSummaries();
+        for(S3ObjectSummary image: list) {
+            keys.add(image.getKey());
         }
         return keys;
     }
