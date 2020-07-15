@@ -19,7 +19,7 @@
 <div>
     <table>
         <thead>
-        <th>Files</th>
+        <th>File=Shared link</th>
         </thead>
     </table>
     <c:forEach items="${items}" var="item">
