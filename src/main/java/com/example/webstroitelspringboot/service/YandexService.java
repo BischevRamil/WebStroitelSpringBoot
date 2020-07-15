@@ -1,5 +1,6 @@
 package com.example.webstroitelspringboot.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -27,11 +28,11 @@ public class YandexService {
     //   @Value("${amazon.s3.endpoint}")
     private final String endpoint = "storage.yandexcloud.net";
     //   @Value("${amazon.s3.bucket}")
-    private final String bucketName = "default";
+    private final String bucketName = "testforwebstoitel";
     //    @Value("${amazon.aws.access-key-id}")
-    private final String accessKey = "nWFTcG0bWEsAB2ZtGsny";
+    private final String accessKey = "cMUbS_RMMT1-Q7RNsmnZ";
     //   @Value("${amazon.aws.access-key-secret}")
-    private final String secretKey = "JQ9iLtuAde8mq9rDhJ4JIxI7fvaSNeQEptlyaG6I";
+    private final String secretKey = "cbQCI1ADzfRwkaofvA1xU1CdSnlGejt099hGt0RZ";
 
 
     @PostConstruct

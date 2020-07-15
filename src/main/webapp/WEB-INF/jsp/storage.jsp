@@ -17,10 +17,11 @@
 <div>
     <h2>File Upload:</h2>
     <h3>Select a file to upload:</h3> <br/>
-    <form action="${contextPath}/uploadFile" method = "POST" enctype = "multipart/form-data"/>
+    <form action="/storage" method = "POST" enctype = "multipart/form-data">
         <input type = "file" name = "file"/>
         <br/>
-        <input type = "submit" value = "Submit"/>
+        <input type = "submit" value = "Upload"/>
+    </form>
 </div>
 </body>
 </html>

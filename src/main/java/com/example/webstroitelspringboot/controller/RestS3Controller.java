@@ -2,32 +2,33 @@ package com.example.webstroitelspringboot.controller;
 
 import com.example.webstroitelspringboot.service.YandexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 
-@RestController
-@RequestMapping("/storage/")
+@Controller
 public class RestS3Controller {
-
+    @Autowired
     private YandexService yandexService;
 
-    @Autowired
-    public RestS3Controller(YandexService yandexService) {
-        this.yandexService = yandexService;
+    @GetMapping("/storage")
+    public String storage() {
+        return "storage";
     }
-
-    @PostMapping("/uploadFile")
-    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
+    @PostMapping("/storage")
+    public String uploadFile(@RequestParam(value = "file") MultipartFile file) {
         this.yandexService.uploadFile(file);
-        return "redirect:/uploadFile";
+        return "redirect:/upload";
     }
 
-    @GetMapping("/uploadFile")
-    public String uploadFile() {
-        return "uploadFile";
+    @GetMapping("/upload")
+    public String uploadStatus() {
+        return "upload";
     }
 
 }
